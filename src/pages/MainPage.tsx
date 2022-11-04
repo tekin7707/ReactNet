@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Table } from "reactstrap";
 import { AppDispatch, RootState } from "../app/store";
 import { CatalogModel, CategoryModel } from "../models/categoyModel";
@@ -65,7 +65,10 @@ function MainPage() {
                           {" "}
                           <img src={x.thumbUrl} width="80"></img>{" "}
                         </th>
-                        <th>{x.name}</th>
+                        <th>
+                           <Link to={"/catalog/"+x.id}>{x.name}</Link>
+
+                          </th>
                         <th>{x.description}</th>
                       </tr>
                     ))

@@ -51,7 +51,7 @@ function Header() {
                 <FaFile /> Profile
               </Link>
             </NavbarText>
-            {user.email === "admin@belek.com" && (
+            {user?.email === "admin@belek.com" && (
               <NavbarText>
                 <Link to="/admin">
                   <FaFile /> admin

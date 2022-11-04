@@ -1,35 +1,46 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Badge, Table } from "reactstrap";
+import { AppDispatch } from "../app/store";
+import { createCategory, deleteCategory } from "../features/category/categorySlice";
 import { CategoryModel } from "../models/categoyModel";
 import catalogApi from "../services/catalogApi";
 
 function Categories() {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [categories, setCategories] = useState<Array<CategoryModel>>([]);
   const [category, setCategory] = useState<CategoryModel>();
+  const [name, setName] = useState("");
+  const [id, setId] = useState(0);
+  const [page, refreshPage] = useState(0);
 
-  useEffect(() => {
-    var promise = catalogApi.GetCategoryListAsync();
-    promise
+  const getCategories = () =>
+    catalogApi
+      .GetCategoryListAsync()
       .then((response) => {
         setCategories(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [categories]);
 
   useEffect(() => {
-    console.log(category);
+    getCategories();
+  }, [page]);
+
+  useEffect(() => {
     setName(category?.name ?? "");
     setId(category?.id ?? 0);
   }, [category]);
 
-  const [name, setName] = useState("");
-  const [id, setId] = useState(0);
-
   const onSubmit = (e: any) => {
     e.preventDefault();
-    console.log(name);
+    dispatch(createCategory({ id, name })).finally(() => {
+      setName("");
+      setId(0);
+      refreshPage(page+1);
+    });
   };
 
   return (
@@ -38,7 +49,7 @@ function Categories() {
         type="button"
         className="btn btn-block btn-add"
         onClick={() => {
-          setCategory({});
+          setCategory({ id: 0, name: "" });
         }}
       >
         Add
@@ -84,7 +95,10 @@ function Categories() {
                   <Badge color="info" onClick={() => setCategory(x)}>
                     edit
                   </Badge>{" "}
-                  <Badge color="danger" onClick={() => {}}>
+                  <Badge color="danger" onClick={() => {
+                      dispatch(deleteCategory(x.id??0)).finally(()=>{refreshPage(page+1)})
+
+                  }}>
                     X
                   </Badge>{" "}
                 </td>

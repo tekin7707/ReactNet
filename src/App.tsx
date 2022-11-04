@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./components/Dashboard";
 import WebComponent from "./pages/WebComponent";
 import Categories from "./components/Categories";
+import WebCatalog from "./pages/WebCatalog";
+import TestComponent from "./components/TestComponent";
 
 function App() {
   return (
@@ -17,6 +19,9 @@ function App() {
         <Header></Header>
         <Routes>
           <Route path="/" element={<WebComponent></WebComponent>}></Route>
+          <Route path="/catalog/:id" element={<WebCatalog></WebCatalog>}></Route>
+          <Route path="/test" element={<TestComponent></TestComponent>}></Route>
+          <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/admin" element={<Dashboard></Dashboard>}></Route>
           <Route path="/admin/category" element={<Dashboard></Dashboard>}></Route>
           <Route path="/admin/catalog" element={<Dashboard></Dashboard>}></Route>

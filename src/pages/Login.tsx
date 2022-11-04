@@ -64,8 +64,7 @@ function Login() {
           <FaUserCheck /> Login
         </h1>
         <br></br>
-        admin@belek.com - Test777777*
-        <span></span>
+        <span onClick={()=>{setFormData({ email:"admin@belek.com",password:"Test777777*"})}}> admin@belek.com : Test777777* </span>
       </section>
       <section className="form">
         <form onSubmit={onSubmit}>

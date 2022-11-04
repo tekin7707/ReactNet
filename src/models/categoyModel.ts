@@ -1,9 +1,15 @@
 export interface CatalogModel{
     id?:number;
+    categoryId?:number;
+    price?:number;
     name?:string;
     description?:string;
-    pictureUrl:string;
-    thumbUrl:string;
+    picture?:string;
+    pictureUrl?:string;
+    thumbUrl?:string;
+    userId?:string;
+    PhotoFormFile?:File;
+
 }
 
 export interface CategoryModel{
