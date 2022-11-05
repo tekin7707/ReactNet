@@ -5,6 +5,7 @@ import {
   FaUser,
   FaPen,
   FaFile,
+  FaCartArrowDown,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -19,6 +20,7 @@ function Header() {
   const dispatch = useDispatch<AppDispatch>();
 
   const { token, user } = useSelector((state: RootState) => state.auth);
+  const { cartItems } = useSelector((state: RootState) => state.cart);
 
   const onLogout = () => {
     dispatch(logout());
@@ -78,6 +80,11 @@ function Header() {
             </NavbarText>
           </>
         )}
+        <NavbarText>
+          <Link to="/cart">
+            <FaCartArrowDown /> Cart ({cartItems.length})
+          </Link>
+        </NavbarText>
       </Navbar>
     </div>
   );

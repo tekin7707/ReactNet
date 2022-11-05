@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Table } from "reactstrap";
 import { AppDispatch, RootState } from "../app/store";
+import { addToCart } from "../features/cart/cartSlice";
 import { CatalogModel, CategoryModel } from "../models/categoyModel";
 import catalogApi from "../services/catalogApi";
 import MainPageSideMenu from "./MainPageSideMenu";
@@ -60,15 +61,23 @@ function MainPage() {
                   {catalogs.length > 0 ? (
                     catalogs?.map((x, index) => (
                       <tr key={x.id}>
-                        <td>{index + 1}</td>
+                        <td>
+                          {index + 1}
+                          <button
+                            onClick={() => {
+                              dispatch(addToCart({id:x.id,name:x.name,quantity:1, unitprice:x.price}));
+                            }}
+                          >
+                            add to cart
+                          </button>
+                        </td>
                         <th>
                           {" "}
                           <img src={x.thumbUrl} width="80"></img>{" "}
                         </th>
                         <th>
-                           <Link to={"/catalog/"+x.id}>{x.name}</Link>
-
-                          </th>
+                          <Link to={"/catalog/" + x.id}>{x.name}</Link>
+                        </th>
                         <th>{x.description}</th>
                       </tr>
                     ))

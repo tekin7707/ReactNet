@@ -11,6 +11,7 @@ import WebComponent from "./pages/WebComponent";
 import Categories from "./components/Categories";
 import WebCatalog from "./pages/WebCatalog";
 import TestComponent from "./components/TestComponent";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Header></Header>
         <Routes>
           <Route path="/" element={<WebComponent></WebComponent>}></Route>
-          <Route path="/catalog/:id" element={<WebCatalog></WebCatalog>}></Route>
+          <Route path="/cart" element={<Cart/>} />
+             <Route path="/catalog/:id" element={<WebCatalog></WebCatalog>}></Route>
           <Route path="/test" element={<TestComponent></TestComponent>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/admin" element={<Dashboard></Dashboard>}></Route>
