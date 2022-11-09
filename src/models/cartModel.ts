@@ -9,4 +9,17 @@ export interface CartItemModel{
     catalogId:number;
     quantity:number;
     unitprice:number;
+    thumbUrl?:string;
+
 }
+
+
+export interface CheckoutUserModel {
+    name?: string;
+    surname?: string;
+    city?: string;
+    country?: string;
+    address?: string;
+    phone?: string;
+    email?: string;
+  }

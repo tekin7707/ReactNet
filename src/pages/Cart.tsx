@@ -1,29 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Badge, Table } from "reactstrap";
 import { AppDispatch, RootState } from "../app/store";
-import {
-  removeFromCart,
-  getTotals,
-} from "../features/cart/cartSlice";
-import { getCatalogs } from "../features/category/categorySlice";
+import { removeFromCart, getTotals } from "../features/cart/cartSlice";
+import { getCatalog, getCatalogs } from "../features/category/categorySlice";
 
 function Cart() {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { cartItems } = useSelector((state: RootState) => state.cart);
   const cart = useSelector((state: RootState) => state.cart);
 
-  const cat = useSelector((state: RootState) => state.category);
+  const [cartItemList, setCartItemList] = useState(cartItems);
 
-  
-  useEffect(() => { 
+  useEffect(() => {
+    console.log("useEffect");
+
+    dispatch(getCatalogs(0)).then((x: any) => {
+      if ((x?.payload?.data?.length ?? 0) > 0) {
+        const _catalogs = x.payload.data;
+        const newArray = cartItems.map((item: any) => {
+          let existingIndex = _catalogs.findIndex((x: any) => x.id === item.id);
+          return { ...item, thumbUrl: _catalogs[existingIndex]?.thumbUrl };
+        });
+        setCartItemList(newArray);
+      }
+    });
     dispatch(getTotals());
-  }, [cart, dispatch]);
-  
+  }, [cart, cartItems, dispatch]);
+
   return (
     <>
       <div className="mb-3">
         <div className="form-control">Cart items</div>
+      </div>
+      <div className="mb-3">
+        <div className="form-control">
+          <button className="btn btn-primary pull-right" onClick={()=>{     
+            navigate("/checkout")
+          }}>Checkout</button>
+        </div>
       </div>
       <div className="mb-3">
         <div className="form-control">
@@ -38,13 +55,13 @@ function Cart() {
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((x: any, index: number) => (
+              {cartItemList.map((x: any, index: number) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <th>{x.id}</th>
-                  <td style={{"float":"left"}}>{x.name}</td>
+                  <th> <img src={x?.thumbUrl ?? ""} width="120px"/> </th>
+                  <td style={{ float: "left" }}>{x.name}</td>
                   <td>{x.quantity}</td>
-                  <td style={{"float":"right"}}>{x.unitprice}</td>
+                  <td style={{ float: "right" }}>{x.unitprice}</td>
                   <td>
                     <Badge
                       className="warning"
@@ -57,7 +74,7 @@ function Cart() {
                   </td>
                 </tr>
               ))}
-              {cartItems.length > 0 ? (
+              {cartItemList.length > 0 ? (
                 <tr key="-1">
                   <td colSpan={5}>Total</td>
                   <td colSpan={1}>TL {cart.cartTotalAmount}</td>

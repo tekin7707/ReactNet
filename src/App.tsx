@@ -12,6 +12,8 @@ import Categories from "./components/Categories";
 import WebCatalog from "./pages/WebCatalog";
 import TestComponent from "./components/TestComponent";
 import Cart from "./pages/Cart";
+import CheckOut from "./pages/CheckOut";
+import Orders from "./components/Orders";
 
 function App() {
   return (
@@ -23,10 +25,12 @@ function App() {
           <Route path="/cart" element={<Cart/>} />
              <Route path="/catalog/:id" element={<WebCatalog></WebCatalog>}></Route>
           <Route path="/test" element={<TestComponent></TestComponent>}></Route>
+          <Route path="/checkout" element={<CheckOut></CheckOut>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/admin" element={<Dashboard></Dashboard>}></Route>
           <Route path="/admin/category" element={<Dashboard></Dashboard>}></Route>
           <Route path="/admin/catalog" element={<Dashboard></Dashboard>}></Route>
+          <Route path="/admin/order" element={<Dashboard></Dashboard>}></Route>
         </Routes>
       </div>
       <ToastContainer />

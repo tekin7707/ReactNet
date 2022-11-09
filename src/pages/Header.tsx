@@ -41,6 +41,11 @@ function Header() {
         <NavbarText>
           <Link to="/">home</Link>
         </NavbarText>
+        <NavbarText>
+              <Link to="/test">
+                <FaFile /> Test
+              </Link>
+            </NavbarText>
         {token ? (
           <>
             <NavbarText>

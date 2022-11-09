@@ -13,6 +13,8 @@ function TestComponent() {
   );
 
   useEffect(() => {
+    console.log("useEffect");
+    
     dispatch(getCategories([]));
   }, [navigate]);
 

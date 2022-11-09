@@ -50,7 +50,7 @@ export const categorySlice = createSlice({
           state.isLoading = false;
           state.isSuccess = true;
           state.isError = false;
-          state.datas.push(action.payload);
+          state.datas=action.payload;
         }
       )
       .addCase(getCategories.rejected, (state, action: PayloadAction<any>) => {
@@ -66,7 +66,7 @@ export const categorySlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.datas.push(action.payload);
+        state.datas=action.payload;
       })
       .addCase(getCatalogs.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
@@ -109,7 +109,7 @@ export const categorySlice = createSlice({
 
 export const getCatalogs = createAsyncThunk<
   any,
-  CatalogModel[],
+  any,
   { state: RootState }
 >("catalog/catalogs", async (categoryId: any, thunkAPI) => {
   try {
@@ -125,7 +125,7 @@ export const getCatalogs = createAsyncThunk<
 
 export const getCatalog = createAsyncThunk<
   any,
-  CatalogModel,
+  any,
   { state: RootState }
 >("catalog/catalogs", async (id: any, thunkAPI) => {
   try {
@@ -215,7 +215,7 @@ export const deleteCatalog = createAsyncThunk<
 
 export const getCategories = createAsyncThunk<
   any,
-  CategoryModel[],
+  any,
   { state: RootState }
 >("catalog/categories", async (_, thunkAPI) => {
   try {

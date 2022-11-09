@@ -6,6 +6,7 @@ import { RootState } from "../app/store";
 import SideMenu from "./SideMenu";
 import Categories from "./Categories";
 import Catalogs from "./Catalogs";
+import Orders from "./Orders";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -23,6 +24,9 @@ function Dashboard() {
 
       case "Catalogs":
         return <Catalogs></Catalogs>;
+
+        case "Orders":
+          return <Orders></Orders>;
       default:
         return null;
     }
