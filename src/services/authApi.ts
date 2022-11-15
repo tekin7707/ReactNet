@@ -11,7 +11,6 @@ const logout = () => {
 };
 
 const siteTokenAsync = async () => {
-  
   var data = qs.stringify({
     client_id: "WebMvcClient",
     client_secret: "secret",
@@ -27,7 +26,6 @@ const siteTokenAsync = async () => {
     data: data,
   };
 
-
   const response = await axios(config);
 
   if (response.data) {
@@ -38,7 +36,6 @@ const siteTokenAsync = async () => {
 };
 
 const loginAsync = async (loginData: LoginModel) => {
-
   var data = qs.stringify({
     client_id: "WebMvcClientForUser",
     client_secret: "secret",
@@ -67,7 +64,6 @@ const loginAsync = async (loginData: LoginModel) => {
 
 const getUserAsync = async (_token: string) => {
   var data = qs.stringify({});
-
   var config = {
     method: "get",
     url: API_URL + "getuser",
@@ -78,12 +74,12 @@ const getUserAsync = async (_token: string) => {
   };
 
   const response = await axios(config);
-
   if (response.data) {
     localStorage.setItem("mtuser", JSON.stringify(response.data));
   }
-
   return response.data;
+
+
   // return new Promise((resolve, reject) => {
   //   axios(config)
   //     .then((res) => {

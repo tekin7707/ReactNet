@@ -21,7 +21,7 @@ function App() {
       <div className="container">
         <Header></Header>
         <Routes>
-          <Route path="/" element={<WebComponent></WebComponent>}></Route>
+          <Route path="*" element={<WebComponent></WebComponent>}></Route>
           <Route path="/cart" element={<Cart/>} />
              <Route path="/catalog/:id" element={<WebCatalog></WebCatalog>}></Route>
           <Route path="/test" element={<TestComponent></TestComponent>}></Route>

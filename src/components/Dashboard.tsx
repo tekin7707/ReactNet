@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import { toast } from "react-toastify";
 
 import SideMenu from "./SideMenu";
 import Categories from "./Categories";
@@ -10,11 +11,18 @@ import Orders from "./Orders";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { token, user } = useSelector((state: RootState) => state.auth);
+  const { token, user, isError, message } = useSelector(
+    (state: RootState) => state.auth
+  );
   const [currentMenu, setMenu] = useState<string>("");
 
   useEffect(() => {
     console.log("useEffect", currentMenu);
+    console.log(isError, message);
+    if (isError) {
+      toast.error(message);
+      navigate("/login");
+    }
   }, [token, currentMenu, navigate]);
 
   const renderCurrentSelection = () => {
@@ -25,8 +33,8 @@ function Dashboard() {
       case "Catalogs":
         return <Catalogs></Catalogs>;
 
-        case "Orders":
-          return <Orders></Orders>;
+      case "Orders":
+        return <Orders></Orders>;
       default:
         return null;
     }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Badge, Table } from "reactstrap";
+import { Badge, Spinner, Table } from "reactstrap";
 import { AppDispatch, RootState } from "../app/store";
 import { getOrders, reset } from "../features/order/orderSlice";
 
@@ -12,6 +12,7 @@ function Orders() {
     (state: RootState) => state.order
   );
 
+  const [orders, setOrders] = useState([]);
 
 
   useEffect(() => {
@@ -19,6 +20,11 @@ function Orders() {
 
     if (isError) {
       console.log(message);
+    }
+
+    if(isSuccess){
+      console.log("isLoading");
+      <Spinner></Spinner>
     }
 
     dispatch(getOrders(0));
@@ -30,7 +36,11 @@ function Orders() {
 
   }, [navigate, isError, message, dispatch]);
 
-  const [orders, setOrders] = useState([]);
+  if(isLoading){
+    console.log("isLoading");
+    <Spinner/>
+  }
+
 
   return (
     <>

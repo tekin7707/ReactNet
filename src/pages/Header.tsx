@@ -29,9 +29,13 @@ function Header() {
   };
 
   useEffect(() => {
+    console.log(user);
+
     if (token) {
       dispatch(getUser(token.access_token));
     }
+    console.log(user);
+    
   }, [token, navigate]);
 
   return (

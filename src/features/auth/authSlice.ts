@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk,PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { LoginModel, UserModel } from "../../models/loginmodel";
 import authApi from "../../services/authApi";
 import authService from "../../services/authService";
@@ -19,33 +19,42 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   await authApi.logout();
 });
 
-export const login = createAsyncThunk("auth/loginAsync",async (user: LoginModel, thunkAPI) => {
+export const login = createAsyncThunk(
+  "auth/loginAsync",
+  async (user: LoginModel, thunkAPI) => {
     try {
       return await authApi.loginAsync(user);
     } catch (error: any) {
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.error_description) ? error.response.data.error_description : error.toString();
+        error.response &&
+        error.response.data &&
+        error.response.data.error_description
+          ? error.response.data.error_description
+          : error.toString();
 
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-export const getUser = createAsyncThunk("auth/getUserAsync",async (_token: string, thunkAPI) => {
-      try {
-        return await authApi.getUserAsync(_token);
-      } catch (error: any) {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.error_description) ? error.response.data.error_description : error.toString();
-  
-        return thunkAPI.rejectWithValue(message);
-      }
+export const getUser = createAsyncThunk(
+  "auth/getUserAsync",
+  async (_token: string, thunkAPI) => {
+    try {
+      await authApi.getUserAsync(_token);
+    } catch (error: any) {
+      const message =
+        error.response &&
+        error.response.data &&
+        error.response.data.error_description
+          ? error.response.data.error_description
+          : error.toString();
+      console.log(message);
+
+      return thunkAPI.rejectWithValue(message);
     }
-  );
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -68,7 +77,7 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.token = action.payload;
       })
-      .addCase(login.rejected, (state, action:PayloadAction<any>) => {
+      .addCase(login.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -77,11 +86,17 @@ export const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.token = null;
       })
+      .addCase(getUser.rejected, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.token = null;
+      })
       .addCase(getUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
-      })
+      });
   },
 });
 
