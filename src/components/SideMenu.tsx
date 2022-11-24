@@ -27,13 +27,13 @@ function SideMenu(props: PropTypes) {
           active={"Categories" === props.currentMenu}
           onClick={() => props.changeMenu("Categories")}
         >
-          Categories
+          Categories (Core 6)
         </ListGroupItem>
         <ListGroupItem active={"Catalogs" === props.currentMenu} onClick={() => props.changeMenu("Catalogs")}>
-          Catalogs
+          Catalogs (Core 6)
         </ListGroupItem>
         <ListGroupItem active={"Orders" === props.currentMenu} onClick={() => props.changeMenu("Orders")}>
-          Orders
+          Orders (AWS Lambda)
         </ListGroupItem>
         <ListGroupItem active={"Settings" === props.currentMenu} onClick={() => props.changeMenu("Settings")}>
           Settings

@@ -41,7 +41,7 @@ export const getUser = createAsyncThunk(
   "auth/getUserAsync",
   async (_token: string, thunkAPI) => {
     try {
-      await authApi.getUserAsync(_token);
+      return await authApi.getUserAsync(_token);
     } catch (error: any) {
       const message =
         error.response &&
@@ -96,6 +96,8 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
+        console.log(action.payload);
+        
       });
   },
 });

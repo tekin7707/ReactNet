@@ -74,21 +74,12 @@ const getUserAsync = async (_token: string) => {
   };
 
   const response = await axios(config);
+ 
   if (response.data) {
     localStorage.setItem("mtuser", JSON.stringify(response.data));
   }
+  console.log(response.data);
   return response.data;
-
-
-  // return new Promise((resolve, reject) => {
-  //   axios(config)
-  //     .then((res) => {
-  //       resolve(res);
-  //     })
-  //     .catch((err) => {
-  //       reject(err);
-  //     });
-  // });
 };
 
 const authService = {

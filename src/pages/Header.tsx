@@ -29,13 +29,9 @@ function Header() {
   };
 
   useEffect(() => {
-    console.log(user);
-
     if (token) {
       dispatch(getUser(token.access_token));
     }
-    console.log(user);
-    
   }, [token, navigate]);
 
   return (
@@ -50,6 +46,7 @@ function Header() {
                 <FaFile /> Test
               </Link>
             </NavbarText>
+
         {token ? (
           <>
             <NavbarText>
@@ -68,7 +65,8 @@ function Header() {
                   <FaFile /> admin
                 </Link>
               </NavbarText>
-            )}
+            )
+            }
             <NavbarText>
               <button className="btn" onClick={onLogout}>
                 <FaSignOutAlt /> Exit
