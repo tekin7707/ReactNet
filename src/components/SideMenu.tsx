@@ -39,18 +39,6 @@ function SideMenu(props: PropTypes) {
           Settings
         </ListGroupItem>                
       </ListGroup>
-
-      {/* <ListGroup>
-        {categories.map((x) => (
-          <ListGroupItem
-            active={x.id === props.currentCategory.id}
-            onClick={() => props.changeCategory(x)}
-            key={x.id}
-          >
-            {x.name}
-          </ListGroupItem>
-        ))}
-      </ListGroup> */}
     </>
   );
 }
